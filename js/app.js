@@ -1,5 +1,4 @@
 "use strict";
-"use strict";
 
 // DOM Elements
 const guessInput = document.getElementById("guess-input");
@@ -11,28 +10,28 @@ const computerGuess = document.getElementById("computer-guess");
 const guessHistory = document.getElementById("guess-history");
 
 // Game Variables
-let computerNumber = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 100
+let computerNumber = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
 let attempts = 0;
 let maxAttempts = 3;
 let history = [];
 
-// Function to check the guess
+// Function to check the player's guess
 function checkGuess() {
-    const playerGuess = parseInt(guessInput.value);
+    const playerGuess = parseInt(guessInput.value); // Get the input value
 
     // Input validation
-    if (isNaN(playerGuess) || playerGuess < 1 || playerGuess > 100) {
-        guessMessage.textContent = "Please enter a valid number between 1 and 100.";
+    if (isNaN(playerGuess) || playerGuess < 1 || playerGuess > 10) {
+        guessMessage.textContent = "Please enter a valid number between 1 and 10.";
         return;
     }
 
     // Update game state
     attempts++;
     history.push(playerGuess);
-    currentGuess.textContent = playerGuess;
-    guessHistory.textContent = history.join(", ");
+    currentGuess.textContent = playerGuess; //  current guess
+    guessHistory.textContent = history.join(", "); //  guess history
 
-    // Check win/lose conditions
+    // Check if the guess is correct, too high, or too low
     if (playerGuess === computerNumber) {
         guessMessage.textContent = "Congratulations! You guessed the correct number!";
         computerGuess.textContent = computerNumber;
@@ -47,32 +46,37 @@ function checkGuess() {
         guessMessage.textContent = "Too high! Try again.";
     }
 
-    // Clear input field
+    // Clear the input f
     guessInput.value = "";
 }
 
-// Function to end the game
+//  end of game
 function endGame() {
-    submitBtn.disabled = true;
-    restartBtn.disabled = false;
-    guessInput.disabled = true;
+    submitBtn.disabled = true; // Disable the submit button
+    restartBtn.disabled = false; // Enable the restart button
+    guessInput.disabled = true; // Disable input field
 }
 
 // Function to restart the game
 function restartGame() {
-    computerNumber = Math.floor(Math.random() * 100) + 1;
+    // Reset variables
+    computerNumber = Math.floor(Math.random() * 10) + 1;
     attempts = 0;
     history = [];
+
+    // Reset 
     guessMessage.textContent = "";
     currentGuess.textContent = "";
     computerGuess.textContent = "";
     guessHistory.textContent = "";
     guessInput.value = "";
+
+   //reset buttons
     submitBtn.disabled = false;
     restartBtn.disabled = true;
     guessInput.disabled = false;
 }
 
-// Event Listeners
-submitBtn.addEventListener("click", checkGuess);
-restartBtn.addEventListener("click", restartGame);
+// 
+submitBtn.addEventListener("click", checkGuess); // Check guess on submit
+restartBtn.addEventListener("click", restartGame); // Restart game on restart
